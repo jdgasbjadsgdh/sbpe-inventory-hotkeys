@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Install inventory hotkeys</title>
+<style>body{margin:0;background:#101923;color:#eaf3fa;font:16px/1.6 system-ui}main{max-width:660px;margin:8vh auto;padding:28px;background:#182430;border:1px solid #385568;border-radius:10px}button{font:inherit;padding:10px 16px;margin:8px 10px 8px 0;cursor:pointer}pre{white-space:pre-wrap;color:#9ce7d1}code{color:#9ce7d1}</style>
+<main><h1>Inventory hotkeys</h1><p>Install into your existing Chrome or Edge WebBreak Overrides folder. Your settings, other plugins and existing inventory keys are preserved. A backup is created before updating.</p>
+<button id="choose">Choose Overrides folder</button><button id="install" disabled>Install / update</button><pre id="status">Choose your Overrides folder to begin.</pre>
+<p>After installation, open <code>www.starbreak.com/VR1574197275.mvmmoclient.js</code> in your Overrides folder. Find <code>SBPE INVENTORY HOTKEYS</code> and edit its <code>SLOT_KEYS</code> block. Keys start unassigned.</p>
+<p>Example: <code>1: "KeyZ", 2: "KeyX", 3: "Digit1"</code>. Save and reload StarBreak when ready. Keep DevTools open for Overrides.</p>
+<p>For first-time setup, open StarBreak DevTools → Sources → Overrides, select an empty folder and click Allow. Choose that same folder here. See README.md for the full tutorial.</p></main>
+<script src="payload-data.js"></script><script src="inventory-install-core.js"></script><script>
+let selected;const statusBox=document.getElementById('status'),installButton=document.getElementById('install');
+document.getElementById('choose').onclick=async()=>{try{if(!window.showDirectoryPicker)throw new Error('Use desktop Chrome or Edge.');selected=await showDirectoryPicker({mode:'readwrite'});statusBox.textContent='Selected: '+selected.name;installButton.disabled=false;}catch(e){if(e.name!=='AbortError')statusBox.textContent=e.message;}};
+installButton.onclick=async()=>{installButton.disabled=true;try{const result=await SBPEInventoryInstaller.install(selected,SBPEInventoryPayload);statusBox.textContent=result.changed?'Installed '+result.file+'\n'+(result.backup?'Backup: '+result.backup+'\n':'')+'Choose inventory keys, save and reload when ready.':'Already installed. Choose inventory keys and reload when ready.';}catch(e){statusBox.textContent='No update completed: '+e.message;}finally{installButton.disabled=false;}};
+</script></html>

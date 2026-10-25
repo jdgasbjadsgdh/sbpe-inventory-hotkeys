@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+*-target.json
+web/payload-data.js
+web/www.starbreak.com/
+web/upstream/

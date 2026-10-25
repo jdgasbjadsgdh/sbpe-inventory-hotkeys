@@ -1,0 +1,14 @@
+25 October 2026 — Inventory hotkeys and missing-spawn recovery
+
+Added 12 equip-bag-slot actions in Controls > SBPE. Bindings start unassigned;
+editable source defaults are marked in src/controls_config.h. Existing keys
+are preserved. Uses normal native inventory handling and item-slot rules.
+One attempt per key press; chat, menu, pause, loading/recovery and dead-player
+guards prevent unintended swaps.
+
+Preflight parsed worlds before native construction to avoid the known missing
+spawn object fatal check. Rejection uses native cleanup and deferred recovery;
+active manual holds remain armed. No spawn is fabricated, and mission retention
+is not guaranteed. Includes the prior chest lifetime guard and Hide all UI.
+
+Installers back up replaced files, preserve settings and do not restart games.

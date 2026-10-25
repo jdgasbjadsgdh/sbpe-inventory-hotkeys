@@ -1,0 +1,135 @@
+SBPE Connectivity / Loading Controls — 24 October 2026
+Version 2026.10.24-connectivity.4
+
+ARM ALL CLIENTS
+Check "Arm all clients" below the controls, then select Rush hold, Boss hold
+or Timed. The selected mode is sent to connected clients in the same group.
+The checkbox starts off. Existing holds are left alone. Cancel, Reconnect,
+camera and panel visibility remain local; use Reconnect all separately.
+
+Mac: use the checkbox in Main's Multibox panel. Every follower needs this
+update before it can accept arm commands. Shared movement can stay off.
+Windows: use the checkbox below the loading buttons. Connected instances
+must have the same multibox_group_key and multibox_port in config.ini.
+Web: the checkbox applies to StarBreak tabs in the same browser profile and
+storage partition. Separate profiles, private windows and native clients
+are separate groups. It does not control Mac/Windows clients from web.
+
+SC WORKFLOW
+1. Before the last generator is destroyed, click Rush hold.
+2. Enter the boss load and wait in EARLY HOLD for as long as you choose.
+3. Click Preview room to see the current server-selected room without
+   deliberately spawning. Check the platforms, using Free camera if needed.
+4. Click Reconnect when ready to spawn through a fresh normal connection.
+
+The Mac user has reported this workflow working in SC. It does not establish
+a guaranteed hold duration. The server can disconnect, expire a mission, or
+select a different room when reconnecting. Preview ends the early hold;
+it cannot return to that earlier phase. If the early step is unavailable,
+the panel reports a fallback and holds the loaded map instead.
+
+BUTTON GUIDE
+Rush hold       Arm an early hold for the very next map or boss entrance.
+Boss hold       Pass intermediate rooms; hold spawn in the next boss room.
+Preview room    End an early hold and load a map preview while keeping spawn
+                held. Unavailable until an early hold has actually started.
+Finish loading  End an early Rush hold and continue normally, without preview.
+Reconnect       Finish a map preview/hold using a fresh normal reconnect.
+                Also available during ordinary connected play.
+Free camera     Toggle panning while an unspawned map preview is available.
+                WASD or arrows move; Shift moves faster. No map, no camera.
+Timed: 360s     Arm an early hold, then automatically advance into preview
+                after six minutes. Spawning still requires manual Reconnect.
+Cancel hold     Disarm an unused mode. During a hold, finish loading/reconnect
+                normally. This ends the hold; it does not just hide the UI.
+Close panel     Hide the panel while keeping its current hold or arm active.
+Save log (web)  Download the test log before refreshing or closing the game.
+
+FREE CAMERA RECOVERY
+Free camera stays selected during a natural disconnect while the loading
+hold remains active. WAIT means the map is temporarily unavailable; camera
+control resumes when a valid held map returns. The same room keeps its camera
+position; a different room starts at its native offset and respects its bounds.
+Finish/cancel, spawning, disabling the plugin or switching free camera off
+ends the selection. You can turn it off while waiting.
+
+SHORTCUTS
+Mac / web: F8 panel, F9 arm last mode/cancel unused arm, F10 next/finish.
+Windows: existing shortcuts are preserved. New installs try F6 panel,
+F7 arm/cancel and F9 next/finish; F11 is the panel fallback if F6 is occupied.
+An occupied key is not reassigned. The Windows panel shows its actual keys.
+On a Mac keyboard, use Fn with function keys if required by system settings.
+Click the collapsed tab to reopen the panel. The Windows arm key initially
+selects Rush; after choosing a mode it arms the last selected mode.
+
+Each button has a short guide below it. Grey controls are unavailable in
+the current state. A preview identifies a current map, not a reserved spawn.
+There is no automatic detector for settled SC platforms or the chest window.
+
+INSTALL
+Mac: extract the entire Mac package and use RUN.command as a standalone SBPE
+folder. Or run UPDATE_EXISTING.command and choose an existing Mac SBPE folder.
+The update backs up replaced files and preserves config.ini settings/binds.
+The native library targets the supported Intel StarBreak build and runs on
+Apple silicon with Rosetta. Its launcher verifies the game before injection.
+
+Windows: use SBPE Windows 1.7.0. Extract the whole Windows package, double-click
+INSTALL.cmd and select the SBPE folder containing pypy and config.ini. You
+can also drag that folder onto INSTALL.cmd. Bundled PyPy runs the installer;
+no separate Python installation or administrator access is needed. Close the
+Windows game before installing, then launch SBPE normally when ready.
+Use the complete installer: this version also bridges the compiled Windows
+mouse callback. Copying only loading_probe.py does not fix older input hooks.
+
+WINDOWS SANDBOXIE MULTIBOX
+1. Update the shared SBPE folder once, outside Sandboxie, before launching
+   the clients. Each sandbox should launch that folder's usual run.bat.
+2. If each sandbox uses a separate copy of SBPE/config.ini, copy the same
+   multibox_group_key and multibox_port to all copies. These are local group
+   settings, not Steam login credentials.
+3. The Multibox panel appears below Loading controls. Controls starts OFF.
+   Select Controls: ON to mirror the focused client's world action bindings
+   into background clients in the same room. Controls: OFF releases them.
+4. Sync turns controls ON and walks followers toward the client where you
+   clicked it. Keep that game window focused. It cannot teleport.
+   Health rows have individual Reconnect buttons; Reconnect all is separate.
+
+Install this update in every copy before testing together. If health bars
+appear but movement does nothing, read the status below the Multibox buttons.
+It shows input unavailable, controls OFF, another room, focus or chat/settings
+blocks. Native input errors and key-event counters are in loading-status.txt
+beside run.bat. Send that file for diagnosis if the issue continues. The game
+must be launched through its updated SBPE run.bat to prepare keyboard symbols.
+
+Discovery uses IPv4 loopback UDP, coordinator port 47812 plus private reply
+ports. A restrictive Sandboxie network policy must allow those loopback
+datagrams for the game. The installer does not change Sandboxie policies.
+If clients do not appear, check the shared group settings and loopback
+network policy. Controls stop on stale state, room mismatch or chat input.
+Shared controls reset OFF if the coordinator exits and another takes over.
+Native input support is checked against the user's exact Windows executable.
+The update does not create Steam accounts or additional Steam instances.
+
+Web: extract the entire Web package and open INSTALL.html in desktop Chrome
+or Edge. Choose your existing Overrides folder and click Install / update.
+The installer backs up its target and preserves existing WebBreak settings.
+First-time setup instructions are in the installer. Reload with DevTools open
+when ready. The included www.starbreak.com folder is a manual-copy fallback.
+
+Installers do not launch or restart games. Existing running native clients
+need a chosen restart to load new code; web needs a chosen page reload.
+
+LOGS AND COMPATIBILITY
+Mac and Windows save metadata logs in loading-tests/. Web keeps its log in
+memory until Save log; a page reload discards unsaved events. Logs do not
+record passwords, Steam tickets or packet contents.
+
+This loading plugin does not fix the independently investigated disconnects.
+The experimental encrypted transport is disabled in the Mac release.
+Mac behavior and native hooks have offline regression coverage; web has
+state-machine and isolated real-browser tests. Windows native adapters,
+state transitions, camera, UI and installer have offline tests. A real Windows
+in-game trial is still needed; start with an ordinary mission.
+
+Set [plugin_loading_probe] enabled = no to disable the native plugin.
+Keep the installer backup if you want to restore the previous version.

@@ -1,0 +1,5 @@
+WebBreak by Dr. Jekyll / pjrje4: https://github.com/pjrje4/WebBreak
+Pinned upstream commit ec7fe74579ec6ad7a5e663a2a55672de62fc8361
+SBPE by atomizer: https://github.com/atomizer/sbpe
+Original game/resources: Crunchy Games.
+Inventory extension and installer source included.

@@ -1,0 +1,15 @@
+{
+  "remove_filter_list": [],
+  "display_filter_list": [],
+  "perf_tracking": [
+    {
+      "name": "Kantikoy Repeater",
+      "variant": "Range",
+      "tracking": true,
+      "modifiers": [
+        "Shots",
+        "Armor Piercing"
+      ]
+    }
+  ]
+}
