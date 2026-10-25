@@ -67,29 +67,4 @@ closed on unsupported builds. The original Steam/game installation is required.
 The Mac bundle also includes prior connectivity/chest guards and a new preflight
 for the known missing-spawn native abort. That guard requests normal recovery;
 it cannot restore a server-side spawn or guarantee staying in the mission.
-
-## Validation and source
-
-Offline checks passed for native Mac controls/input, all 12 bag positions and
-equipment request types, unreadable-memory rejection, ASan/UBSan, controls
-persistence, missing-spawn/hold recovery and eight regression suites. Binary
-verification checks the game SHA/UUID and 114 native symbol addresses.
-
-Windows tests cover typed request construction/destruction, input guards,
-installer/key preservation, exact symbol resolution and real x86 thiscall
-adapters under emulation. Web tests use actual WebBreak memory views/DOM plus
-the pinned native item lookup, slot lookup, request ctor/dtor and equip handler;
-accepted swaps, input-budget rejection and context/installer guards are covered.
-
-**Live server inventory swapping has not yet been verified for these releases.**
-No game restarts or browser reloads were performed to publish them.
-
-Mac build instructions are in its README/`BUILD.command`. Windows source uses
-the existing SBPE Python runtime. Web source rebuilding is explained in its
-README and `BUILD.py`. Personal logs, profiles, account data and generated
-Windows target manifests are excluded.
-
-Based on [atomizer/sbpe](https://github.com/atomizer/sbpe) and
-[pjrje4/WebBreak](https://github.com/pjrje4/WebBreak). Existing license notices
-are retained, including pyelftools' bundled license. StarBreak and its original
 resources belong to Crunchy Games.
